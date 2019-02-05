@@ -63,6 +63,9 @@
     <Compile Include="Config\IConfigReader.cs" />
     <Compile Include="Config\IConfigStream.cs" />
     <Compile Include="Config\TxtConfigStream .cs" />
+    <Compile Include="Output\ConsoleOutput.cs" />
+    <Compile Include="Output\ITreeOutput.cs" />
+    <Compile Include="Output\TxtFileOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sort\ITreeSorter.cs" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using TreeSort.BusinessLogic;
 using TreeSort.Config;
+using TreeSort.Output;
 using TreeSort.Sort;
 using Unity;
 using Unity.Injection;
@@ -14,10 +15,11 @@ namespace TreeSort
     {
         static void Main()
         {
-            var container = new UnityContainer();
-
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Добро пожаловать в TreeSort ...");
+            Console.ForegroundColor = ConsoleColor.Gray;
 
+            var container = new UnityContainer();
             var configPath = GetFile();
             var fileExtension = Path.GetExtension(configPath);
             if (fileExtension == ".txt")
@@ -29,6 +31,8 @@ namespace TreeSort
             container.RegisterType<IConfigReader, ConfigReader>();
             container.RegisterType<IConfigEntityCreator, ConfigEntityCreator>();
             container.RegisterType<ITreeSorter, TreeSorter>();
+            //container.RegisterType<ITreeOutput, ConsoleOutput>();
+            container.RegisterType<ITreeOutput, TxtFileOutput>();
             container.RegisterType<ITreeBusinessLogic, TreeBusinessLogic>(new ContainerControlledLifetimeManager());
 
             var businessLogic = container.Resolve<ITreeBusinessLogic>();
@@ -44,9 +48,10 @@ namespace TreeSort
                 Console.WriteLine("\nДля запуска работы нажмите Enter");
                 Console.WriteLine("Для завершения работы нажмите Enter");
                 Console.ForegroundColor = ConsoleColor.Gray;
+
                 Console.ReadLine();
 
-                businessLogic.StartJob(token);
+                businessLogic.StartJobAsync(token);
 
                 Console.WriteLine();
                 Console.ReadLine();

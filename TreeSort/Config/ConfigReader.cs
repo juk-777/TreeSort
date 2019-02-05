@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TreeSort.Config
 {
@@ -31,6 +32,8 @@ namespace TreeSort.Config
                 }
                 configEntityList.Add(_configEntityCreator.CreateEntity(words));
             }
+
+            Console.WriteLine("\nКонфигурация считана успешно...");
             return configEntityList;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TreeSort.Config;
 
@@ -12,6 +13,7 @@ namespace TreeSort.Sort
                          orderby configEntity.Pid, configEntity.Text
                          select configEntity;
 
+            Console.WriteLine("\nСортировка выполнена успешно...");
             return result.ToList();
         }
     }

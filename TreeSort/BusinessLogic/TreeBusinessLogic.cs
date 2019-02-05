@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using TreeSort.Config;
+using TreeSort.Output;
 using TreeSort.Sort;
 
 namespace TreeSort.BusinessLogic
@@ -10,38 +11,28 @@ namespace TreeSort.BusinessLogic
     {
         private readonly IConfigReader _configReader;
         private readonly ITreeSorter _treeSorter;
+        private readonly ITreeOutput _treeOutput;
 
-        public TreeBusinessLogic(IConfigReader configReader, ITreeSorter treeSorter)
+        public TreeBusinessLogic(IConfigReader configReader, ITreeSorter treeSorter, ITreeOutput treeOutput)
         {
             _configReader = configReader;
             _treeSorter = treeSorter;
+            _treeOutput = treeOutput;
         }
-        public void StartJob(CancellationToken token)
+        public async Task StartJobAsync(CancellationToken token)
         {
-            Console.WriteLine("\nНачинаю работу ...");
-
             try
             {
                 token.ThrowIfCancellationRequested();
 
-                Console.WriteLine("\nСчитывание конфигурации ...");
                 var configEntityList = _configReader.ReadConfig();
 
                 if (configEntityList == null || configEntityList.Count == 0)
                     throw new ArgumentException("Файл конфигурации пуст!");
 
-                foreach (var configEntity in configEntityList)
-                {
-                    Console.WriteLine(configEntity.Id + " " + configEntity.Pid + " " + configEntity.Text);
-                }
-
-                Console.WriteLine("\nСортировка ...");
                 var configEntityListSort = _treeSorter.Sort(configEntityList);
 
-                foreach (var configEntity in configEntityListSort)
-                {
-                    Console.WriteLine(configEntity.Id + " " + configEntity.Pid + " " + configEntity.Text);
-                }
+                await _treeOutput.OutputAsync(configEntityListSort);
 
             }
             catch (TaskCanceledException) { Console.WriteLine("\nОтмена операции StartJob до её запуска ..."); }

@@ -1,9 +1,10 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace TreeSort.BusinessLogic
 {
     public interface ITreeBusinessLogic
     {
-        void StartJob(CancellationToken token);
+        Task StartJobAsync(CancellationToken token);
     }
 }
