@@ -17,6 +17,9 @@ namespace TreeSort.Config
         {
             string[,] confMas = _configStream.ReadStream();
 
+            if (confMas == null || confMas.Length == 0)
+                throw new ArgumentException("Файл конфигурации пуст!");
+
             List<ConfigEntity> configEntityList = new List<ConfigEntity>();
 
             var rows = confMas.GetUpperBound(0) + 1;

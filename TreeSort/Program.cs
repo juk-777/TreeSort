@@ -76,7 +76,7 @@ namespace TreeSort
         {
             string configPath = Path.Combine(@"Files", @"input_tree.txt");
             Console.WriteLine("--------------------");
-            Console.WriteLine($"Введите '1' для того, чтобы считать конфигурацию из предварительно подготовленного XML файла \n{configPath}");
+            Console.WriteLine($"Введите '1' для того, чтобы считать конфигурацию из предварительно подготовленного XML файла {configPath}");
             Console.WriteLine("\nЛибо введите любой другой путь к файлу конфигурации.");
             configPath = Console.ReadLine();
 

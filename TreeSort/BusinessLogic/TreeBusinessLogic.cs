@@ -27,9 +27,6 @@ namespace TreeSort.BusinessLogic
 
                 var configEntityList = _configReader.ReadConfig();
 
-                if (configEntityList == null || configEntityList.Count == 0)
-                    throw new ArgumentException("Файл конфигурации пуст!");
-
                 var configEntityListSort = _treeSorter.Sort(configEntityList);
 
                 await _treeOutput.OutputAsync(configEntityListSort);
