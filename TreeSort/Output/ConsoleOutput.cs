@@ -10,10 +10,10 @@ namespace TreeSort.Output
         public async Task OutputAsync(List<ConfigEntity> configEntityList)
         {
             Console.WriteLine("\nВывод на консоль...");
-            await Task.Run(() => SpaseOutput(configEntityList));
+            await Task.Run(() => SpaсeOutput(configEntityList));
         }
 
-        private void SpaseOutput(List<ConfigEntity> configEntityList)
+        private void SpaсeOutput(List<ConfigEntity> configEntityList)
         {
             var spacing = "";
             const string gap = "  ";
