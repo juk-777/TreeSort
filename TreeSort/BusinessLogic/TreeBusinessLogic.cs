@@ -2,16 +2,19 @@
 using System.Threading;
 using System.Threading.Tasks;
 using TreeSort.Config;
+using TreeSort.Sort;
 
 namespace TreeSort.BusinessLogic
 {
     public class TreeBusinessLogic : ITreeBusinessLogic
     {
         private readonly IConfigReader _configReader;
+        private readonly ITreeSorter _treeSorter;
 
-        public TreeBusinessLogic(IConfigReader configReader)
+        public TreeBusinessLogic(IConfigReader configReader, ITreeSorter treeSorter)
         {
             _configReader = configReader;
+            _treeSorter = treeSorter;
         }
         public void StartJob(CancellationToken token)
         {
@@ -30,7 +33,14 @@ namespace TreeSort.BusinessLogic
                 foreach (var configEntity in configEntityList)
                 {
                     Console.WriteLine(configEntity.Id + " " + configEntity.Pid + " " + configEntity.Text);
-                    
+                }
+
+                Console.WriteLine("\nСортировка ...");
+                var configEntityListSort = _treeSorter.Sort(configEntityList);
+
+                foreach (var configEntity in configEntityListSort)
+                {
+                    Console.WriteLine(configEntity.Id + " " + configEntity.Pid + " " + configEntity.Text);
                 }
 
             }

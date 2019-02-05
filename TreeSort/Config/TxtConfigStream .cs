@@ -17,8 +17,6 @@ namespace TreeSort.Config
             if (_settingsPath == null)
                 throw new ApplicationException("Не указан путь к файлу конфигурации!");
 
-            Console.WriteLine($"Считывание конфигурации из TXT файла по пути {_settingsPath} ...");
-
             var countLines = File.ReadAllLines(_settingsPath).Length;
             var retMas = new string[countLines, 3];
             var row = 0;

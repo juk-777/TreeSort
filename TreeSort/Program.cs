@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using TreeSort.BusinessLogic;
 using TreeSort.Config;
+using TreeSort.Sort;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
@@ -27,6 +28,7 @@ namespace TreeSort
 
             container.RegisterType<IConfigReader, ConfigReader>();
             container.RegisterType<IConfigEntityCreator, ConfigEntityCreator>();
+            container.RegisterType<ITreeSorter, TreeSorter>();
             container.RegisterType<ITreeBusinessLogic, TreeBusinessLogic>(new ContainerControlledLifetimeManager());
 
             var businessLogic = container.Resolve<ITreeBusinessLogic>();
