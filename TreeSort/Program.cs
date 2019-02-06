@@ -31,8 +31,8 @@ namespace TreeSort
             container.RegisterType<IConfigReader, ConfigReader>();
             container.RegisterType<IConfigEntityCreator, ConfigEntityCreator>();
             container.RegisterType<ITreeSorter, TreeSorter>();
-            //container.RegisterType<ITreeOutput, ConsoleOutput>();
-            container.RegisterType<ITreeOutput, TxtFileOutput>();
+            container.RegisterType<ITreeOutput, ConsoleOutput>();
+            //container.RegisterType<ITreeOutput, TxtFileOutput>();
             container.RegisterType<ITreeBusinessLogic, TreeBusinessLogic>(new ContainerControlledLifetimeManager());
 
             var businessLogic = container.Resolve<ITreeBusinessLogic>();
