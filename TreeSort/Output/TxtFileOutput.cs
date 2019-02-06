@@ -9,6 +9,9 @@ namespace TreeSort.Output
 {
     class TxtFileOutput : ITreeOutput
     {
+        private const string Gap = "  ";
+        private readonly StringBuilder _outTree = new StringBuilder();
+
         public async Task OutputAsync(List<ConfigEntity> configEntityList)
         {
             var path = AppDomain.CurrentDomain.BaseDirectory + @"Files";
@@ -19,31 +22,35 @@ namespace TreeSort.Output
             }
 
             var writePath = Path.Combine(path, "output_tree.txt");
+            const string spacing = "";
 
-            var spacing = "";
-            const string gap = "  ";
-            var outTree = new StringBuilder();
-
-            for (var i = 0; i < configEntityList.Count; i++)
+            foreach (var configEntity in configEntityList)
             {
-                if (i > 0)
-                {
-                    if (configEntityList[i].Pid > configEntityList[i - 1].Pid)
-                    {
-                        spacing += gap;
-                    }
-                }
-
-                outTree.Append(spacing + configEntityList[i].Id + ";" + configEntityList[i].Pid + ";" + configEntityList[i].Text);
-                outTree.AppendLine();
+                _outTree.Append(spacing + configEntity.Id + ";" + configEntity.Pid + ";" + configEntity.Text);
+                _outTree.AppendLine();
+                GetChild(configEntity, spacing);
             }
 
             using (var sw = new StreamWriter(writePath, false, Encoding.Default))
             {
-                await sw.WriteLineAsync(outTree.ToString());
+                await sw.WriteLineAsync(_outTree.ToString());
             }
 
             Console.WriteLine("\nФайл сохранен");
+        }
+
+        private void GetChild(ConfigEntity configEntity, string spacing)
+        {
+            if (configEntity.Childrens.Count != 0)
+            {
+                spacing += Gap;
+                foreach (var child in configEntity.Childrens)
+                {
+                    _outTree.Append(spacing + child.Id + ";" + child.Pid + ";" + child.Text);
+                    _outTree.AppendLine();
+                    GetChild(child, spacing);
+                }
+            }
         }
     }
 }

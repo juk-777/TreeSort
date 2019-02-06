@@ -7,6 +7,6 @@ namespace TreeSort.Config
         public int Id { get; set; }
         public int Pid { get; set; }
         public string Text { get; set; }
-        public List<ConfigEntity> Children { get; set; } = new List<ConfigEntity>();
+        public List<ConfigEntity> Childrens { get; } = new List<ConfigEntity>();
     }
 }

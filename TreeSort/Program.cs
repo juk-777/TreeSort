@@ -31,8 +31,8 @@ namespace TreeSort
             container.RegisterType<IConfigReader, ConfigReader>();
             container.RegisterType<IConfigEntityCreator, ConfigEntityCreator>();
             container.RegisterType<ITreeSorter, TreeSorter>();
-            container.RegisterType<ITreeOutput, ConsoleOutput>();
-            //container.RegisterType<ITreeOutput, TxtFileOutput>();
+            //container.RegisterType<ITreeOutput, ConsoleOutput>();
+            container.RegisterType<ITreeOutput, TxtFileOutput>();
             container.RegisterType<ITreeBusinessLogic, TreeBusinessLogic>(new ContainerControlledLifetimeManager());
 
             var businessLogic = container.Resolve<ITreeBusinessLogic>();
@@ -48,12 +48,10 @@ namespace TreeSort
                 Console.WriteLine("\nДля запуска работы нажмите Enter");
                 Console.WriteLine("Для завершения работы нажмите Enter");
                 Console.ForegroundColor = ConsoleColor.Gray;
-
                 Console.ReadLine();
 
                 businessLogic.StartJobAsync(token);
 
-                Console.WriteLine();
                 Console.ReadLine();
                 cts.Cancel();
 

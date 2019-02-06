@@ -7,41 +7,33 @@ namespace TreeSort.Output
 {
     public class ConsoleOutput : ITreeOutput
     {
+        private const string Gap = "  ";
+
         public async Task OutputAsync(List<ConfigEntity> configEntityList)
         {
-            Console.WriteLine("\nВывод на консоль...");
+            Console.WriteLine("\nВывод на консоль...\n");
             await Task.Run(() => SpaсeOutput(configEntityList));
         }
 
         private void SpaсeOutput(List<ConfigEntity> configEntityList)
         {
-            var spacing = "";
-            //const string gap = "  ";
-
-            for (var i = 0; i < configEntityList.Count; i++)
+            const string spacing = "";
+            foreach (var configEntity in configEntityList)
             {
-                //if (i > 0)
-                //{
-                //    if (configEntityList[i].Pid > configEntityList[i - 1].Pid)
-                //    {
-                //        spacing += gap;
-                //        //Console.WriteLine("----------");
-                //    }
-                //}
-
-                Console.WriteLine(spacing + configEntityList[i].Id + ";" + configEntityList[i].Pid + ";" + configEntityList[i].Text);
-                PrintChild(configEntityList[i]);
+                Console.WriteLine(spacing + configEntity.Id + ";" + configEntity.Pid + ";" + configEntity.Text);
+                PrintChild(configEntity, spacing);
             }
         }
 
-        private void PrintChild(ConfigEntity configEntity)
+        private void PrintChild(ConfigEntity configEntity, string spacing)
         {
-            if (configEntity.Children.Count != 0)
+            if (configEntity.Childrens.Count != 0)
             {
-                for (var i = 0; i < configEntity.Children.Count; i++)
+                spacing += Gap;
+                foreach (var child in configEntity.Childrens)
                 {
-                    Console.WriteLine(configEntity.Children[i].Id + ";" + configEntity.Children[i].Pid + ";" + configEntity.Children[i].Text);
-                    PrintChild(configEntity.Children[i]);
+                    Console.WriteLine(spacing + child.Id + ";" + child.Pid + ";" + child.Text);
+                    PrintChild(child, spacing);
                 }
             }
         }
